@@ -327,10 +327,8 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton_save" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="newBill" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="newBill" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton_save" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton_print" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -482,8 +480,8 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="manage_medicine_button" alignment="0" max="32767" attributes="0"/>
                       <Component id="generate_bill_button" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jButton6" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jButton7" alignment="0" max="32767" attributes="0"/>
+                      <Component id="manage_stocks_button" alignment="0" max="32767" attributes="0"/>
+                      <Component id="manage_employees_button" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="43" max="32767" attributes="0"/>
               </Group>
@@ -497,9 +495,9 @@
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Component id="manage_medicine_button" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                  <Component id="manage_stocks_button" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                  <Component id="jButton7" min="-2" max="-2" attributes="0"/>
+                  <Component id="manage_employees_button" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="223" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -531,21 +529,27 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manage_medicine_buttonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton6">
+        <Component class="javax.swing.JButton" name="manage_stocks_button">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Open Sans" size="14" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Manage Stocks"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manage_stocks_buttonActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton7">
+        <Component class="javax.swing.JButton" name="manage_employees_button">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Open Sans" size="14" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Manage Employees"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manage_employees_buttonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

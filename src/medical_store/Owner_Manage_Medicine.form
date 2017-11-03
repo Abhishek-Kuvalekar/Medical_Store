@@ -64,8 +64,8 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="manage_medicine_button" alignment="0" max="32767" attributes="0"/>
                       <Component id="generate_bill_button" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jButton6" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jButton7" alignment="0" max="32767" attributes="0"/>
+                      <Component id="manage_stocks_button" alignment="0" max="32767" attributes="0"/>
+                      <Component id="manage_employees_button" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="43" max="32767" attributes="0"/>
               </Group>
@@ -79,9 +79,9 @@
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Component id="manage_medicine_button" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                  <Component id="manage_stocks_button" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                  <Component id="jButton7" min="-2" max="-2" attributes="0"/>
+                  <Component id="manage_employees_button" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="223" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -113,21 +113,27 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manage_medicine_buttonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton6">
+        <Component class="javax.swing.JButton" name="manage_stocks_button">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Open Sans" size="14" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Manage Stocks"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manage_stocks_buttonActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton7">
+        <Component class="javax.swing.JButton" name="manage_employees_button">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Open Sans" size="14" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Manage Employees"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manage_employees_buttonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -289,9 +295,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="add_medicine_button_add" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                              <Component id="reset_button_add" min="-2" pref="88" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                               <Component id="cancel_button_add" min="-2" pref="88" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -375,7 +379,6 @@
                       <EmptySpace pref="53" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="add_medicine_button_add" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="reset_button_add" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cancel_button_add" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
@@ -479,18 +482,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="medicine_description_addActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="reset_button_add">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Reset"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reset_button_addActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JButton" name="cancel_button_add">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancel"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancel_button_addActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="add_medicine_button_add">
               <Properties>
@@ -558,7 +556,7 @@
                                       </Group>
                                       <EmptySpace min="71" pref="71" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="supllier_name_update" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="supplier_name_update" alignment="0" max="32767" attributes="0"/>
                                           <Component id="medicine_type_update" alignment="0" max="32767" attributes="0"/>
                                           <Component id="medicine_name_update" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
                                       </Group>
@@ -587,9 +585,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="update_medicine_button_update" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                              <Component id="reset_button_update" min="-2" pref="88" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                               <Component id="cancel_button_update" min="-2" pref="88" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -624,7 +620,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="supllier_name_update" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="supplier_name_update" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cost_per_strip_update" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -650,7 +646,6 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="update_medicine_button_update" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="reset_button_update" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cancel_button_update" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -677,6 +672,8 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="search_updateItemStateChanged"/>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="search_updateFocusGained"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="search_updateActionPerformed"/>
               </Events>
               <AuxValues>
@@ -719,7 +716,7 @@
                 <Property name="text" type="java.lang.String" value="Cost Per Strip:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="supllier_name_update">
+            <Component class="javax.swing.JComboBox" name="supplier_name_update">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -793,18 +790,13 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="reset_button_update">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Reset"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reset_button_updateActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JButton" name="cancel_button_update">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancel"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancel_button_updateActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="medicine_power_update">
             </Component>

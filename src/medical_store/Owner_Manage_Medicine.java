@@ -27,6 +27,25 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
         initComponents();
         setSearchItem(search_view, "medicine", "medc_name");
         setSearchItem(search_update, "medicine", "medc_name");
+        setSearchItem(supplier_name_add, "supplier", "supplier_name");
+        setSearchItem(supplier_name_update, "supplier", "supplier_name");
+        setSearchItem(medicine_type_add, "medicine_type", "type_name");
+        setSearchItem(medicine_type_update, "medicine_type", "type_name");
+    }
+    
+    public Owner_Manage_Medicine(int panel, String name) {
+        initComponents();
+        setSearchItem(search_view, "medicine", "medc_name");
+        setSearchItem(search_update, "medicine", "medc_name");
+        setSearchItem(supplier_name_add, "supplier", "supplier_name");
+        setSearchItem(supplier_name_update, "supplier", "supplier_name");
+        setSearchItem(medicine_type_add, "medicine_type", "type_name");
+        setSearchItem(medicine_type_update, "medicine_type", "type_name");
+        this.setVisible(true);
+        jTabbedPane1.setSelectedIndex(panel);
+        if(panel == 2) {
+            search_update.setSelectedItem(name);
+        }
     }
 
     private void setSearchItem(JComboBox component, String table, String column) {
@@ -55,8 +74,8 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         generate_bill_button = new javax.swing.JButton();
         manage_medicine_button = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        manage_stocks_button = new javax.swing.JButton();
+        manage_employees_button = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -80,7 +99,6 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
         cost_per_strip_add = new javax.swing.JTextField();
         shelf_number_add = new javax.swing.JTextField();
         medicine_description_add = new javax.swing.JTextField();
-        reset_button_add = new javax.swing.JButton();
         cancel_button_add = new javax.swing.JButton();
         add_medicine_button_add = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
@@ -96,7 +114,7 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         cost_per_strip_update = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        supllier_name_update = new javax.swing.JComboBox<>();
+        supplier_name_update = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         medicine_type_update = new javax.swing.JComboBox<>();
@@ -106,7 +124,6 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         update_medicine_button_update = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        reset_button_update = new javax.swing.JButton();
         cancel_button_update = new javax.swing.JButton();
         medicine_power_update = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
@@ -135,11 +152,21 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
-        jButton6.setText("Manage Stocks");
+        manage_stocks_button.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        manage_stocks_button.setText("Manage Stocks");
+        manage_stocks_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manage_stocks_buttonActionPerformed(evt);
+            }
+        });
 
-        jButton7.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
-        jButton7.setText("Manage Employees");
+        manage_employees_button.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        manage_employees_button.setText("Manage Employees");
+        manage_employees_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manage_employees_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -150,8 +177,8 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(manage_medicine_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(generate_bill_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(manage_stocks_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(manage_employees_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -162,9 +189,9 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(manage_medicine_button)
                 .addGap(35, 35, 35)
-                .addComponent(jButton6)
+                .addComponent(manage_stocks_button)
                 .addGap(34, 34, 34)
-                .addComponent(jButton7)
+                .addComponent(manage_employees_button)
                 .addContainerGap(223, Short.MAX_VALUE))
         );
 
@@ -309,14 +336,12 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
             }
         });
 
-        reset_button_add.setText("Reset");
-        reset_button_add.addActionListener(new java.awt.event.ActionListener() {
+        cancel_button_add.setText("Cancel");
+        cancel_button_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reset_button_addActionPerformed(evt);
+                cancel_button_addActionPerformed(evt);
             }
         });
-
-        cancel_button_add.setText("Cancel");
 
         add_medicine_button_add.setText("Add Medicine");
         add_medicine_button_add.addActionListener(new java.awt.event.ActionListener() {
@@ -346,9 +371,7 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(add_medicine_button_add)
-                        .addGap(36, 36, 36)
-                        .addComponent(reset_button_add, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
+                        .addGap(65, 65, 65)
                         .addComponent(cancel_button_add, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
@@ -417,7 +440,6 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(add_medicine_button_add)
-                    .addComponent(reset_button_add)
                     .addComponent(cancel_button_add))
                 .addGap(35, 35, 35))
         );
@@ -428,6 +450,16 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
         jLabel9.setText("Search the medicine:");
 
         search_update.setEditor(null);
+        search_update.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                search_updateItemStateChanged(evt);
+            }
+        });
+        search_update.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                search_updateFocusGained(evt);
+            }
+        });
         search_update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 search_updateActionPerformed(evt);
@@ -482,14 +514,12 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
 
         jSeparator1.setFont(new java.awt.Font("Open Sans", 1, 12)); // NOI18N
 
-        reset_button_update.setText("Reset");
-        reset_button_update.addActionListener(new java.awt.event.ActionListener() {
+        cancel_button_update.setText("Cancel");
+        cancel_button_update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reset_button_updateActionPerformed(evt);
+                cancel_button_updateActionPerformed(evt);
             }
         });
-
-        cancel_button_update.setText("Cancel");
 
         jLabel19.setFont(new java.awt.Font("Open Sans", 1, 12)); // NOI18N
         jLabel19.setText("Medicine Power");
@@ -520,7 +550,7 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
                                     .addComponent(jLabel14))
                                 .addGap(71, 71, 71)
                                 .addGroup(update_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(supllier_name_update, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(supplier_name_update, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(medicine_type_update, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(medicine_name_update, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(update_panelLayout.createSequentialGroup()
@@ -542,9 +572,7 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, update_panelLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(update_medicine_button_update)
-                        .addGap(36, 36, 36)
-                        .addComponent(reset_button_update, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
+                        .addGap(54, 54, 54)
                         .addComponent(cancel_button_update, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, update_panelLayout.createSequentialGroup()
@@ -572,7 +600,7 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(update_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(supllier_name_update, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(supplier_name_update, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(cost_per_strip_update, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -594,7 +622,6 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(update_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(update_medicine_button_update)
-                    .addComponent(reset_button_update)
                     .addComponent(cancel_button_update))
                 .addContainerGap())
         );
@@ -654,6 +681,33 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
         }
     }
     
+    public void showInformationToUpdate() {
+        try {
+            String name = search_update.getSelectedItem().toString();
+            Connection conn = null;
+            conn = MySQL_Connector.getConnection();
+            String query = "select * from medicine where medc_name = '" + name + "'";
+            ResultSet rs = MySQL_Connector.runQuery(conn, query);
+            if(rs == null) {
+                JOptionPane.showMessageDialog(null, "Failed to obtain data from database. Try after some time.");
+            }
+            else if(rs.next()) {
+                medicine_name_update.setText(rs.getString("medc_name"));
+                medicine_description_update.setText(rs.getString("medc_description"));
+                medicine_per_strip_update.setText(rs.getString("medc_per_strip"));
+                cost_per_strip_update.setText(rs.getString("medc_cost_per_strip"));
+                shelf_number_update.setText(rs.getString("shelf_no"));
+                medicine_power_update.setText(rs.getString("medc_power"));
+                available_quantity_update.setText(rs.getString("medc_quantity_in_tablets"));
+                supplier_name_update.setSelectedItem(supplier_name_update.getItemAt(Integer.parseInt(rs.getString("medc_supplier_id")) - 1));
+                medicine_type_update.setSelectedItem(medicine_type_update.getItemAt(Integer.parseInt(rs.getString("medc_type_id")) - 1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Owner_Manage_Medicine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
     private void manage_medicine_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manage_medicine_buttonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_manage_medicine_buttonActionPerformed
@@ -675,7 +729,7 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
     }//GEN-LAST:event_medicine_description_addActionPerformed
 
     private void search_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_updateActionPerformed
-        // TODO add your handling code here:
+        showInformationToUpdate();
     }//GEN-LAST:event_search_updateActionPerformed
 
     private void medicine_name_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicine_name_updateActionPerformed
@@ -691,19 +745,85 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
     }//GEN-LAST:event_medicine_description_updateActionPerformed
 
     private void update_medicine_button_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_medicine_button_updateActionPerformed
-        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(rootPane, "Do you really want to update " + search_update.getSelectedItem().toString() + "?");
+        if(result == 1 || result == 2) {
+            return;
+        }
+        try {
+            String name = medicine_name_update.getText();
+            String description = medicine_description_update.getText();
+            String medicine_per_strip = medicine_per_strip_update.getText();
+            String cost = cost_per_strip_update.getText();
+            String shelf = shelf_number_update.getText();
+            String power = medicine_power_update.getText();
+            String quantity = available_quantity_update.getText();
+            int supplier = supplier_name_update.getSelectedIndex();
+            int type = medicine_type_update.getSelectedIndex();
+            
+            supplier++;
+            type++;
+            
+            Connection conn = MySQL_Connector.getConnection();
+            String query = "update medicine set medc_name = '" + name + "', medc_supplier_id = " + supplier + ", medc_type_id = " + type + ", medc_per_strip = " + (int)Float.parseFloat(medicine_per_strip) + ", medc_cost_per_strip = " + (int)Float.parseFloat(cost) + ", medc_description = '" + description + "', shelf_no = '" + shelf + "', medc_power = " + Integer.parseInt(power) + ", medc_quantity_in_tablets = " + Integer.parseInt(quantity) + " where medc_name = '" + search_update.getSelectedItem().toString() + "'";
+            MySQL_Connector.runUpdateQuery(conn, query);
+            
+            this.setVisible(false);
+            Owner_Manage_Medicine window = new Owner_Manage_Medicine(2, name);
+        } catch (SQLException ex) {
+            Logger.getLogger(Owner_Manage_Medicine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_update_medicine_button_updateActionPerformed
 
-    private void reset_button_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_button_updateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_reset_button_updateActionPerformed
-
-    private void reset_button_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_button_addActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_reset_button_addActionPerformed
-
     private void add_medicine_button_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_medicine_button_addActionPerformed
-        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(rootPane, "Do you really want to add " + medicine_name_add.getText() + " to the database?");
+        if(result == 1 || result == 2) {
+            return;
+        }
+        try {
+            String name = medicine_name_add.getText();
+            String description = medicine_description_add.getText();
+            String medicine_per_strip = medicine_per_strip_add.getText();
+            String cost = cost_per_strip_add.getText();
+            String shelf = shelf_number_add.getText();
+            String power = medicine_power_add.getText();
+            String quantity = available_quantity_add.getText();
+            int supplier = supplier_name_add.getSelectedIndex();
+            int type = medicine_type_add.getSelectedIndex();
+            
+            supplier++;
+            type++;
+            
+            Connection conn = MySQL_Connector.getConnection();
+            String query = "select medc_id from medicine order by medc_id desc limit 1";
+            ResultSet rs = MySQL_Connector.runQuery(conn, query);
+            String id = null;
+            
+            if(rs == null) {
+                JOptionPane.showMessageDialog(null, "Failed to connect to the database. Try again after some time."); 
+            }
+            if(rs.next()) {
+                id = rs.getString("medc_id");
+            }
+            String text = "", num = "";
+            for(char ch : id.toCharArray()) {
+                if(Character.isDigit(ch)) {
+                    num += ch;
+                }
+                else {
+                    text += ch;
+                }
+            }
+            id = text + (Integer.parseInt(num) + 1);
+            
+            query = "insert into medicine values ('" + id + "', '" + name + "', " + supplier + ", " + type + ", " + (int)Float.parseFloat(medicine_per_strip) + ", " + (int)Float.parseFloat(cost) + ", '" + description + "', '" + shelf + "', " + Integer.parseInt(power) + ", " + Integer.parseInt(quantity) + ")";
+            MySQL_Connector.runUpdateQuery(conn, query);
+            
+            this.setVisible(false);
+            Owner_Manage_Medicine window = new Owner_Manage_Medicine(1, null);
+        } catch (SQLException ex) {
+            Logger.getLogger(Owner_Manage_Medicine.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_add_medicine_button_addActionPerformed
 
     private void generate_bill_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generate_bill_buttonActionPerformed
@@ -744,6 +864,50 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_delete_button_viewActionPerformed
+
+    private void search_updateItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_search_updateItemStateChanged
+        showInformationToUpdate();
+    }//GEN-LAST:event_search_updateItemStateChanged
+
+    private void search_updateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_search_updateFocusGained
+        showInformationToUpdate();
+    }//GEN-LAST:event_search_updateFocusGained
+
+    private void cancel_button_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel_button_updateActionPerformed
+        int result = JOptionPane.showConfirmDialog(rootPane, "Do you really want to cancel? Your entered infomation will be lost.");
+        if(result == 1 || result == 2) {
+            return;
+        }
+        showInformationToUpdate();
+    }//GEN-LAST:event_cancel_button_updateActionPerformed
+
+    private void cancel_button_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel_button_addActionPerformed
+        int result = JOptionPane.showConfirmDialog(rootPane, "Do you really want to cancel? Your entered infomation will be lost.");
+        if(result == 1 || result == 2) {
+            return;
+        }
+        medicine_name_add.setText("");
+        medicine_description_add.setText("");
+        medicine_per_strip_add.setText("");
+        cost_per_strip_add.setText("");
+        shelf_number_add.setText("");
+        medicine_power_add.setText("");
+        available_quantity_add.setText("");
+        supplier_name_add.setSelectedItem(supplier_name_add.getItemAt(0));
+        medicine_type_add.setSelectedItem(medicine_type_add.getItemAt(0));
+    }//GEN-LAST:event_cancel_button_addActionPerformed
+
+    private void manage_stocks_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manage_stocks_buttonActionPerformed
+        Manage_Stocks window = new Manage_Stocks();
+        window.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_manage_stocks_buttonActionPerformed
+
+    private void manage_employees_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manage_employees_buttonActionPerformed
+        this.setVisible(false);
+        Owner_Manage_Employee window = new Owner_Manage_Employee();
+        window.setVisible(true);
+    }//GEN-LAST:event_manage_employees_buttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -790,8 +954,6 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
     private javax.swing.JTextField cost_per_strip_update;
     private javax.swing.JButton delete_button_view;
     private javax.swing.JButton generate_bill_button;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -818,7 +980,9 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton manage_employees_button;
     private javax.swing.JButton manage_medicine_button;
+    private javax.swing.JButton manage_stocks_button;
     private javax.swing.JTextField medicine_description_add;
     private javax.swing.JTextField medicine_description_update;
     private javax.swing.JTextField medicine_name_add;
@@ -829,14 +993,12 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
     private javax.swing.JTextField medicine_power_update;
     private javax.swing.JComboBox<String> medicine_type_add;
     private javax.swing.JComboBox<String> medicine_type_update;
-    private javax.swing.JButton reset_button_add;
-    private javax.swing.JButton reset_button_update;
     private javax.swing.JComboBox<String> search_update;
     private javax.swing.JComboBox<String> search_view;
     private javax.swing.JTextField shelf_number_add;
     private javax.swing.JTextField shelf_number_update;
-    private javax.swing.JComboBox<String> supllier_name_update;
     private javax.swing.JComboBox<String> supplier_name_add;
+    private javax.swing.JComboBox<String> supplier_name_update;
     private javax.swing.JTable table_view;
     private javax.swing.JButton update_button_view;
     private javax.swing.JButton update_medicine_button_update;

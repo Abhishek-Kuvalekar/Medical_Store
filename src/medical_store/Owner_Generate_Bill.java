@@ -146,8 +146,8 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         generate_bill_button = new javax.swing.JButton();
         manage_medicine_button = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        manage_stocks_button = new javax.swing.JButton();
+        manage_employees_button = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
@@ -387,9 +387,8 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
                     .addComponent(jLabel_total_cost, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton_save)
-                        .addComponent(newBill))
+                    .addComponent(newBill)
+                    .addComponent(jButton_save)
                     .addComponent(jButton_print))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -413,11 +412,21 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
-        jButton6.setText("Manage Stocks");
+        manage_stocks_button.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        manage_stocks_button.setText("Manage Stocks");
+        manage_stocks_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manage_stocks_buttonActionPerformed(evt);
+            }
+        });
 
-        jButton7.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
-        jButton7.setText("Manage Employees");
+        manage_employees_button.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        manage_employees_button.setText("Manage Employees");
+        manage_employees_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manage_employees_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -428,8 +437,8 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(manage_medicine_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(generate_bill_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(manage_stocks_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(manage_employees_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -440,9 +449,9 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(manage_medicine_button)
                 .addGap(35, 35, 35)
-                .addComponent(jButton6)
+                .addComponent(manage_stocks_button)
                 .addGap(34, 34, 34)
-                .addComponent(jButton7)
+                .addComponent(manage_employees_button)
                 .addContainerGap(223, Short.MAX_VALUE))
         );
 
@@ -615,6 +624,18 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
         window.setVisible(true);
     }//GEN-LAST:event_manage_medicine_buttonActionPerformed
 
+    private void manage_stocks_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manage_stocks_buttonActionPerformed
+        Manage_Stocks window = new Manage_Stocks();
+        window.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_manage_stocks_buttonActionPerformed
+
+    private void manage_employees_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manage_employees_buttonActionPerformed
+        this.setVisible(false);
+        Owner_Manage_Employee window = new Owner_Manage_Employee();
+        window.setVisible(true);
+    }//GEN-LAST:event_manage_employees_buttonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -654,8 +675,6 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
     private javax.swing.JButton AddItemToBill;
     private javax.swing.JTable JTable_info;
     private javax.swing.JButton generate_bill_button;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton_print;
     private javax.swing.JButton jButton_save;
     private javax.swing.JComboBox<String> jComboBox1_select;
@@ -678,7 +697,9 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable_Bill;
     private javax.swing.JTextField jTextField_quantity;
+    private javax.swing.JButton manage_employees_button;
     private javax.swing.JButton manage_medicine_button;
+    private javax.swing.JButton manage_stocks_button;
     private javax.swing.JButton newBill;
     // End of variables declaration//GEN-END:variables
 }

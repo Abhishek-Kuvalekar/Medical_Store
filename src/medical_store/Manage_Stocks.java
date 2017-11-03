@@ -134,6 +134,11 @@ public class Manage_Stocks extends javax.swing.JFrame {
         jButton_add_to_database = new javax.swing.JButton();
         jLabel_quantity_purchased = new javax.swing.JTextField();
         jLabel_cost_of_purchase = new javax.swing.JTextField();
+        jPanel12 = new javax.swing.JPanel();
+        generate_bill_button = new javax.swing.JButton();
+        manage_medicine_button = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        manage_employees_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -449,7 +454,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Update Stock", jPanel3);
@@ -491,7 +496,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(120, 120, 120)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
                 .addGap(176, 176, 176))
         );
         jPanel11Layout.setVerticalGroup(
@@ -523,7 +528,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(320, 320, 320)
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Delete Stock", jPanel4);
@@ -600,7 +605,6 @@ public class Manage_Stocks extends javax.swing.JFrame {
             }
         });
 
-        jLabel_cost_of_purchase.setEditable(false);
         jLabel_cost_of_purchase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jLabel_cost_of_purchaseActionPerformed(evt);
@@ -641,7 +645,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
                         .addComponent(jButton_add_item, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(117, 117, 117)))
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -669,17 +673,76 @@ public class Manage_Stocks extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Insert New Stock", jPanel2);
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Navigation"));
+
+        generate_bill_button.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        generate_bill_button.setText("Generate Bill");
+        generate_bill_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generate_bill_buttonActionPerformed(evt);
+            }
+        });
+
+        manage_medicine_button.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        manage_medicine_button.setText("Manage Medicines");
+        manage_medicine_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manage_medicine_buttonActionPerformed(evt);
+            }
+        });
+
+        jButton6.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(201, 45, 45));
+        jButton6.setText("Manage Stocks");
+
+        manage_employees_button.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        manage_employees_button.setText("Manage Employees");
+        manage_employees_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manage_employees_buttonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(manage_medicine_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(generate_bill_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(manage_employees_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(generate_bill_button)
+                .addGap(34, 34, 34)
+                .addComponent(manage_medicine_button)
+                .addGap(35, 35, 35)
+                .addComponent(jButton6)
+                .addGap(34, 34, 34)
+                .addComponent(manage_employees_button)
+                .addContainerGap(223, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(272, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -687,7 +750,9 @@ public class Manage_Stocks extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -972,6 +1037,24 @@ public class Manage_Stocks extends javax.swing.JFrame {
              Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
         }*/
     }//GEN-LAST:event_jComboBox_supplier_nameItemStateChanged
+
+    private void generate_bill_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generate_bill_buttonActionPerformed
+        Owner_Generate_Bill window = new Owner_Generate_Bill();
+        window.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_generate_bill_buttonActionPerformed
+
+    private void manage_medicine_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manage_medicine_buttonActionPerformed
+        this.setVisible(false);
+        Owner_Manage_Medicine window = new Owner_Manage_Medicine();
+        window.setVisible(true);
+    }//GEN-LAST:event_manage_medicine_buttonActionPerformed
+
+    private void manage_employees_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manage_employees_buttonActionPerformed
+        this.setVisible(false);
+        Owner_Manage_Employee window = new Owner_Manage_Employee();
+        window.setVisible(true);
+    }//GEN-LAST:event_manage_employees_buttonActionPerformed
     
     private void tableSort() {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTable_stock_table.getModel());
@@ -1017,6 +1100,8 @@ public class Manage_Stocks extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton generate_bill_button;
+    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton_add_item;
     private javax.swing.JButton jButton_add_to_database;
     private javax.swing.JButton jButton_search;
@@ -1045,6 +1130,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1066,5 +1152,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_total_cost;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
+    private javax.swing.JButton manage_employees_button;
+    private javax.swing.JButton manage_medicine_button;
     // End of variables declaration//GEN-END:variables
 }
