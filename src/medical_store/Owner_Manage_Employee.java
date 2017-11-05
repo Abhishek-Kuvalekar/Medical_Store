@@ -6,41 +6,95 @@
 package medical_store;
 
 import com.mysql.jdbc.Connection;
+import java.awt.event.ActionEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import static medical_store.Employee_Window.serial_no;
 
 /**
  *
  * @author abhishek
  */
 public class Owner_Manage_Employee extends javax.swing.JFrame {
-
+    
+    public static int serial_no;
     /**
      * Creates new form Owner_Manage_Employee
      */
     public Owner_Manage_Employee() {
+        serial_no = 1;
         initComponents();
         setSearchItem(role, "role", "role_name");
         setSearchItem(search_view, "employee", "emp_name");
         setSearchItem(role1, "role", "role_name");
         setSearchItem(search_update, "employee", "emp_name");
+        setSearchItem(search_attendance, "employee", "emp_name");
+        date_attendance.setText(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
+        DefaultTableModel tablemodel = (DefaultTableModel)this.attendance.getModel();
+        ListSelectionModel model = attendance.getSelectionModel();
+        model.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent lse) {
+                if(! model.isSelectionEmpty()) {
+                    try {
+                        int selectedRow = model.getMinSelectionIndex();
+                        for(int i = selectedRow+1; i<attendance.getRowCount(); i++) {
+                            attendance.setValueAt((Integer.parseInt(attendance.getValueAt(i, 0).toString())-1), i, 0);
+                        }
+                        tablemodel.removeRow(selectedRow);
+                        serial_no = serial_no -1;
+                    }catch(Exception e) {
+                        
+                    }
+                }
+            }
+        });
+        fillAttendance();
     }
     
     public Owner_Manage_Employee(int panel, String name) {
+        serial_no = 1;
         initComponents();
         setSearchItem(role, "role", "role_name");
         setSearchItem(search_view, "employee", "emp_name");
         setSearchItem(role1, "role", "role_name");
         setSearchItem(search_update, "employee", "emp_name");
+        setSearchItem(search_attendance, "employee", "emp_name");
+        date_attendance.setText(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
+        DefaultTableModel tablemodel = (DefaultTableModel)this.attendance.getModel();
+        ListSelectionModel model = attendance.getSelectionModel();
+        model.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent lse) {
+                if(! model.isSelectionEmpty()) {
+                    try {
+                        int selectedRow = model.getMinSelectionIndex();
+                        for(int i = selectedRow+1; i<attendance.getRowCount(); i++) {
+                            attendance.setValueAt((Integer.parseInt(attendance.getValueAt(i, 0).toString())-1), i, 0);
+                        }
+                        tablemodel.removeRow(selectedRow);
+                        serial_no = serial_no -1;
+                    }catch(Exception e) {
+                        
+                    }
+                }
+            }
+        });
+        fillAttendance();
         jTabbedPane1.setSelectedIndex(panel);
         if(panel == 3) {
             search_update.setSelectedItem(name);
@@ -48,6 +102,26 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
         this.setVisible(true);
     }
     
+    private void fillAttendance() {
+        try {
+            Connection conn = MySQL_Connector.getConnection();
+            String query = "select emp_id from attendance_details where day = '" + date_attendance.getText() + "' and attendance = 'T'";
+            ResultSet rs = MySQL_Connector.runQuery(conn, query);
+            
+            while(rs.next()) {
+                query = "select emp_name from employee where emp_id = " + Integer.parseInt(rs.getString("emp_id"));
+                ResultSet rs1 = MySQL_Connector.runQuery(conn, query);
+                if(rs1.next()) {
+                    addRowToAttendance(rs1.getString("emp_name"));
+                }
+            }
+            
+            rs.close();
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Owner_Manage_Employee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void setSearchItem(JComboBox component, String table, String column) {
         try(Connection conn = MySQL_Connector.getConnection()) {
             String conn_query = "select " + column + " from " + table;
@@ -135,9 +209,17 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        date_attendance = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        search_attendance = new javax.swing.JComboBox<>();
+        mark_attendance = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        attendance = new javax.swing.JTable();
+        save_attendance = new javax.swing.JButton();
+        cancel_attendance = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -257,37 +339,135 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(166, 147, 147));
         jPanel1.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
 
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Search"));
+
         jLabel1.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
         jLabel1.setText("Date");
 
-        jLabel2.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        date_attendance.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
 
-        jLabel3.setText("jLabel3");
+        jLabel3.setFont(new java.awt.Font("Open Sans", 1, 12)); // NOI18N
+        jLabel3.setText("Name:");
+
+        mark_attendance.setFont(new java.awt.Font("Open Sans", 1, 12)); // NOI18N
+        mark_attendance.setText("Mark Attendance");
+        mark_attendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mark_attendanceActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(date_attendance, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(search_attendance, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(mark_attendance, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(date_attendance, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(search_attendance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(mark_attendance)
+                .addGap(22, 22, 22))
+        );
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Present Employees"));
+
+        attendance.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Sr. No.", "Employee Name"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(attendance);
+
+        save_attendance.setFont(new java.awt.Font("Open Sans", 1, 12)); // NOI18N
+        save_attendance.setText("Save Attendance");
+        save_attendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                save_attendanceActionPerformed(evt);
+            }
+        });
+
+        cancel_attendance.setFont(new java.awt.Font("Open Sans", 1, 12)); // NOI18N
+        cancel_attendance.setText("Cancel");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(57, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(save_attendance)
+                        .addGap(32, 32, 32)
+                        .addComponent(cancel_attendance))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(save_attendance)
+                    .addComponent(cancel_attendance))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(56, 56, 56)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(716, Short.MAX_VALUE))
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(59, 59, 59)
-                .addComponent(jLabel3)
-                .addContainerGap(433, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Mark Attendance", jPanel1);
@@ -921,6 +1101,70 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
         search_update.setSelectedItem(search_view.getSelectedItem().toString());
     }//GEN-LAST:event_update_viewActionPerformed
 
+    
+    private void mark_attendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mark_attendanceActionPerformed
+        for(int i = 0; i  < attendance.getRowCount(); i++) {
+            if(search_attendance.getSelectedItem().toString().equals(attendance.getValueAt(i, 1).toString())) {
+                return;
+            }
+        }
+        addRowToAttendance(search_attendance.getSelectedItem().toString());
+    }//GEN-LAST:event_mark_attendanceActionPerformed
+
+    private void addRowToAttendance(String name) {
+        DefaultTableModel model = (DefaultTableModel)attendance.getModel();
+        model.addRow(new Object[] {null, null});
+        attendance.setValueAt(serial_no, serial_no - 1, 0);
+        attendance.setValueAt(name, serial_no - 1, 1);
+        serial_no++;
+    }
+    private void save_attendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save_attendanceActionPerformed
+        try {
+            Connection conn = MySQL_Connector.getConnection();
+            String query = "delete from attendance_details where day = '" + date_attendance.getText() + "'";
+            MySQL_Connector.runUpdateQuery(conn, query);
+            
+            for(int i = 0; i < attendance.getRowCount(); i++) {
+                query = "select emp_id from employee where emp_name = '" + attendance.getValueAt(i, 1).toString() + "'";
+                ResultSet rs = MySQL_Connector.runQuery(conn, query);
+                if(rs.next()) {
+                    query = "insert into attendance_details values(" + Integer.parseInt(rs.getString("emp_id")) +", '" + date_attendance.getText() + "', 'T')";
+                    MySQL_Connector.runUpdateQuery(conn, query);
+                }
+                rs.close();
+            }
+            
+            query = "select emp_id from employee";
+            ResultSet rs = MySQL_Connector.runQuery(conn, query);
+            while(rs.next()) {
+                query = "select * from attendance_details where emp_id = " + rs.getString("emp_id") + " and day = '" + date_attendance.getText() + "'";
+                ResultSet rs1 = MySQL_Connector.runQuery(conn, query);
+                if(rs1 == null || rs1.next() == false) {
+                    query = "insert into attendance_details values(" + Integer.parseInt(rs.getString("emp_id")) + ", '" + date_attendance.getText() + "', 'F')";
+                    MySQL_Connector.runUpdateQuery(conn, query);
+                }
+            }
+            
+            rs.close();
+            conn.close();
+            
+            JOptionPane.showMessageDialog(null, "Attendance saved successfully!");
+            
+            this.setVisible(false);
+            Owner_Manage_Employee window = new Owner_Manage_Employee(0, null);
+        } catch (SQLException ex) {
+            Logger.getLogger(Owner_Manage_Employee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_save_attendanceActionPerformed
+
+    public void actionPerformed(ActionEvent e) {
+        JOptionPane.showMessageDialog(null, "happened");
+        DefaultTableModel model = (DefaultTableModel)attendance.getModel();
+        if(attendance.getSelectedRow() != -1) {
+            model.removeRow(attendance.getSelectedRow());
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -959,8 +1203,11 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea addr;
     private javax.swing.JTextArea addr1;
+    private javax.swing.JTable attendance;
     private javax.swing.JButton cancel_add;
+    private javax.swing.JButton cancel_attendance;
     private javax.swing.JButton cancel_update;
+    private javax.swing.JLabel date_attendance;
     private javax.swing.JButton delete_view;
     private org.jdesktop.swingx.JXDatePicker dob;
     private javax.swing.JTextField dob1;
@@ -981,7 +1228,6 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1000,14 +1246,18 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton manage_medicine_button;
     private javax.swing.JButton manage_stock_button;
+    private javax.swing.JButton mark_attendance;
     private javax.swing.JTextField mob;
     private javax.swing.JTextField mob1;
     private javax.swing.JTextField mob_alt;
@@ -1018,6 +1268,8 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> role1;
     private javax.swing.JTextField salary;
     private javax.swing.JTextField salary1;
+    private javax.swing.JButton save_attendance;
+    private javax.swing.JComboBox<String> search_attendance;
     private javax.swing.JComboBox<String> search_update;
     private javax.swing.JComboBox<String> search_view;
     private javax.swing.JButton submit_add;
