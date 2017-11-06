@@ -78,8 +78,8 @@ public class Manage_Stocks extends javax.swing.JFrame {
         }catch(SQLException e) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e); 
         }
-        jComboBox_supplier_name.setSelectedIndex(-1);
-        jComboBox_medicine_name.setSelectedIndex(-1);
+       // jComboBox_supplier_name.setSelectedIndex(-1);
+       // jComboBox_medicine_name.setSelectedIndex(-1);
        // jComboBox3_supplier_name.setSelectedIndex(-1);
         DefaultTableModel tablemodel = (DefaultTableModel)this.jTable_stock_table.getModel();
         ListSelectionModel model = jTable_stock_table.getSelectionModel();
@@ -126,8 +126,8 @@ public class Manage_Stocks extends javax.swing.JFrame {
         generate_bill_button1 = new javax.swing.JButton();
         manage_medicine_button1 = new javax.swing.JButton();
         manage_stock_button1 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        manage_defects_button = new javax.swing.JButton();
+        manage_employee = new javax.swing.JButton();
+        jButton_manage_defects = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -218,7 +218,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
 
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Navigation"));
 
-        generate_bill_button1.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        generate_bill_button1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         generate_bill_button1.setText("Generate Bill");
         generate_bill_button1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,7 +226,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
             }
         });
 
-        manage_medicine_button1.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        manage_medicine_button1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         manage_medicine_button1.setText("Manage Medicines");
         manage_medicine_button1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,7 +234,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
             }
         });
 
-        manage_stock_button1.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        manage_stock_button1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         manage_stock_button1.setForeground(new java.awt.Color(191, 23, 23));
         manage_stock_button1.setText("Manage Stocks");
         manage_stock_button1.addActionListener(new java.awt.event.ActionListener() {
@@ -243,19 +243,19 @@ public class Manage_Stocks extends javax.swing.JFrame {
             }
         });
 
-        jButton8.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
-        jButton8.setText("Manage Employees");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        manage_employee.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        manage_employee.setText("Manage Employees");
+        manage_employee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                manage_employeeActionPerformed(evt);
             }
         });
 
-        manage_defects_button.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
-        manage_defects_button.setText("Manage Defects");
-        manage_defects_button.addActionListener(new java.awt.event.ActionListener() {
+        jButton_manage_defects.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jButton_manage_defects.setText("Manage Defects");
+        jButton_manage_defects.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manage_defects_buttonActionPerformed(evt);
+                jButton_manage_defectsActionPerformed(evt);
             }
         });
 
@@ -269,8 +269,8 @@ public class Manage_Stocks extends javax.swing.JFrame {
                     .addComponent(manage_medicine_button1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(generate_bill_button1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(manage_stock_button1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(manage_defects_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(manage_employee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_manage_defects, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
@@ -283,9 +283,9 @@ public class Manage_Stocks extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(manage_stock_button1)
                 .addGap(39, 39, 39)
-                .addComponent(manage_defects_button)
+                .addComponent(jButton_manage_defects)
                 .addGap(38, 38, 38)
-                .addComponent(jButton8)
+                .addComponent(manage_employee)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -294,6 +294,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel1.setText("Supplier Name:");
 
+        jComboBox_supplier_name.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
         jComboBox_supplier_name.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox_supplier_nameItemStateChanged(evt);
@@ -303,6 +304,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel2.setText("Medicine Name:");
 
+        jComboBox_medicine_name.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
         jComboBox_medicine_name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox_medicine_nameActionPerformed(evt);
@@ -640,12 +642,9 @@ public class Manage_Stocks extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBox3_medicine_name, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_delete_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton_delete_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(152, 152, 152))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -658,7 +657,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61)
+                .addGap(62, 62, 62)
                 .addComponent(jButton_delete_stock)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -716,7 +715,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(220, Short.MAX_VALUE))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Delete Stock", jPanel4);
@@ -1114,9 +1113,9 @@ public class Manage_Stocks extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -1132,7 +1131,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+ 
     private void jButton_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_searchActionPerformed
         String supplier_name = null;
         String medicine_name = null;
@@ -1142,11 +1141,11 @@ public class Manage_Stocks extends javax.swing.JFrame {
         for(int i = j-1;i >= 0 ; i--) {
             dm.removeRow(i);
         }
-        if(jComboBox_supplier_name.getSelectedIndex() != -1) {
+        if(jComboBox_supplier_name.getSelectedIndex() != 0) {
             supplier_name = jComboBox_supplier_name.getSelectedItem().toString();
         }
         
-        if(jComboBox_medicine_name.getSelectedIndex() != -1) {
+        if(jComboBox_medicine_name.getSelectedIndex() != 0) {
            medicine_name = jComboBox_medicine_name.getSelectedItem().toString();
         }
         if(jXDatePicker.getDate() != null) {
@@ -1196,7 +1195,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
                     model.addRow(new Object[]{medicine_name, supplier_name, rs2.getString("quantity"), rs2.getString("total_cost_of_purchase"), rs2.getString("purchase_date_timestamp")});
                 }
                 tableSort();
-            }else if(supplier_name == null && medicine_name != null && Date == null) {
+            }else if((supplier_name == null && medicine_name != null && Date == null) || (supplier_name != null && medicine_name != null && Date == null)) {
                 String query1 = "select medc_id from medicine where medc_name = '"+medicine_name+"'";
                 ResultSet rs1 = MySQL_Connector.runQuery(conn, query1);
                 DefaultTableModel model = (DefaultTableModel)this.jTable_stock_table.getModel();
@@ -1546,17 +1545,17 @@ public class Manage_Stocks extends javax.swing.JFrame {
         window.setVisible(true);
     }//GEN-LAST:event_manage_stock_button1ActionPerformed
 
-    private void manage_defects_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manage_defects_buttonActionPerformed
-        this.setVisible(false);
-        Manage_Defects window = new Manage_Defects();
-        window.setVisible(true);
-    }//GEN-LAST:event_manage_defects_buttonActionPerformed
+    private void jButton_manage_defectsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_manage_defectsActionPerformed
+       this.setVisible(false);
+       Manage_Defects defect = new Manage_Defects();
+       defect.setVisible(true);
+    }//GEN-LAST:event_jButton_manage_defectsActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        this.setVisible(false);
-        Owner_Manage_Employee window = new Owner_Manage_Employee();
-        window.setVisible(true);
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void manage_employeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manage_employeeActionPerformed
+       this.setVisible(false);
+       Owner_Manage_Employee window = new Owner_Manage_Employee();
+       window.setVisible(true);
+    }//GEN-LAST:event_manage_employeeActionPerformed
     
     private void tableSort() {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTable_stock_table.getModel());
@@ -1603,11 +1602,11 @@ public class Manage_Stocks extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton generate_bill_button1;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton_add_item;
     private javax.swing.JButton jButton_add_supplier;
     private javax.swing.JButton jButton_add_to_database;
     private javax.swing.JButton jButton_delete_stock;
+    private javax.swing.JButton jButton_manage_defects;
     private javax.swing.JButton jButton_remove_supplier;
     private javax.swing.JButton jButton_search;
     private javax.swing.JButton jButton_update_stock;
@@ -1690,7 +1689,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXDatePicker jXDatePicker;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
-    private javax.swing.JButton manage_defects_button;
+    private javax.swing.JButton manage_employee;
     private javax.swing.JButton manage_medicine_button1;
     private javax.swing.JButton manage_stock_button1;
     // End of variables declaration//GEN-END:variables
