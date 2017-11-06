@@ -38,12 +38,13 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
     public Owner_Manage_Employee() {
         serial_no = 1;
         initComponents();
+        date_attendance.setText(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
         setSearchItem(role, "role", "role_name");
         setSearchItem(search_view, "employee", "emp_name");
         setSearchItem(role1, "role", "role_name");
         setSearchItem(search_update, "employee", "emp_name");
         setSearchItem(search_attendance, "employee", "emp_name");
-        date_attendance.setText(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
+        setSalary();
         DefaultTableModel tablemodel = (DefaultTableModel)this.attendance.getModel();
         ListSelectionModel model = attendance.getSelectionModel();
         model.addListSelectionListener(new ListSelectionListener() {
@@ -69,12 +70,13 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
     public Owner_Manage_Employee(int panel, String name) {
         serial_no = 1;
         initComponents();
+        date_attendance.setText(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
         setSearchItem(role, "role", "role_name");
         setSearchItem(search_view, "employee", "emp_name");
         setSearchItem(role1, "role", "role_name");
         setSearchItem(search_update, "employee", "emp_name");
         setSearchItem(search_attendance, "employee", "emp_name");
-        date_attendance.setText(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
+        setSalary();
         DefaultTableModel tablemodel = (DefaultTableModel)this.attendance.getModel();
         ListSelectionModel model = attendance.getSelectionModel();
         model.addListSelectionListener(new ListSelectionListener() {
@@ -100,6 +102,54 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
             search_update.setSelectedItem(name);
         }
         this.setVisible(true);
+    }
+    
+    private void setSalary() {
+        try {
+            String date = date_attendance.getText();
+            String[] arr = date.split("-");
+            int count = 0, limit = Integer.parseInt(arr[2]);
+            
+            Connection conn = MySQL_Connector.getConnection();
+            
+            for(int i = 1; i <= limit; i++) {
+                String num = "";
+                if(i < 10) {
+                    num = "0" + i;
+                }
+                else {
+                    num += i;
+                }
+                String query = "select attendance from attendance_details where emp_id = " + (search_view.getSelectedIndex() + 1) + " and day = '" + arr[0] + "-" + arr[1] + "-" + num + "'";
+                ResultSet rs = MySQL_Connector.runQuery(conn, query);
+                if(rs.next()) {
+                    if(rs.getString("attendance").equals("T")) {
+                        count++;
+                    }
+                }
+                rs.close();
+            }
+            
+            float per = (float)count / limit * 100;
+            String perc = "" + per;
+            attendance_label.setText(perc + "%");
+            
+            String query = "select emp_salary from employee where emp_id = " + (search_view.getSelectedIndex() + 1);
+            float salary = 0;
+            ResultSet rs = MySQL_Connector.runQuery(conn, query);
+            if(rs.next()) {
+                salary = Float.parseFloat(rs.getString("emp_salary"));
+            }
+            
+            float salary_till_now = per / 100 * salary / limit;
+            String strSalary = "" + salary_till_now;
+            
+            salary_label.setText(strSalary);
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Owner_Manage_Employee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     private void fillAttendance() {
@@ -229,6 +279,11 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        attendance_label = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        salary_label = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
@@ -577,13 +632,59 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
                 .addContainerGap(109, Short.MAX_VALUE))
         );
 
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Salary Information"));
+
+        jLabel2.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        jLabel2.setText("Attendance of this month(till now):");
+
+        attendance_label.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+
+        jLabel25.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        jLabel25.setText("Salary(till now):");
+
+        salary_label.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        salary_label.setToolTipText("");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(attendance_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(salary_label)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(attendance_label))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(salary_label))
+                .addContainerGap(78, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -593,9 +694,12 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(71, 71, 71)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("View An Employee", jPanel3);
@@ -1011,6 +1115,7 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
 
     private void search_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_viewActionPerformed
         showInformationTable(search_view, jTable1);
+        setSalary();
     }//GEN-LAST:event_search_viewActionPerformed
 
     private void cancel_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel_addActionPerformed
@@ -1090,11 +1195,8 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
 
     private void search_viewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_search_viewItemStateChanged
         showInformationTable(search_view, jTable1);
+        setSalary();
     }//GEN-LAST:event_search_viewItemStateChanged
-
-    private void search_viewFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_search_viewFocusGained
-        showInformationTable(search_view, jTable1);
-    }//GEN-LAST:event_search_viewFocusGained
 
     private void update_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_viewActionPerformed
         jTabbedPane1.setSelectedIndex(3);
@@ -1158,6 +1260,11 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
         
     }//GEN-LAST:event_save_attendanceActionPerformed
 
+    private void search_viewFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_search_viewFocusGained
+        showInformationTable(search_view, jTable1);
+        setSalary();
+    }//GEN-LAST:event_search_viewFocusGained
+
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(null, "happened");
         DefaultTableModel model = (DefaultTableModel)attendance.getModel();
@@ -1204,6 +1311,7 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
     private javax.swing.JTextArea addr;
     private javax.swing.JTextArea addr1;
     private javax.swing.JTable attendance;
+    private javax.swing.JLabel attendance_label;
     private javax.swing.JButton cancel_add;
     private javax.swing.JButton cancel_attendance;
     private javax.swing.JButton cancel_update;
@@ -1228,10 +1336,12 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1248,6 +1358,7 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1268,6 +1379,7 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> role1;
     private javax.swing.JTextField salary;
     private javax.swing.JTextField salary1;
+    private javax.swing.JLabel salary_label;
     private javax.swing.JButton save_attendance;
     private javax.swing.JComboBox<String> search_attendance;
     private javax.swing.JComboBox<String> search_update;
