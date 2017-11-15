@@ -76,6 +76,7 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
         manage_medicine_button = new javax.swing.JButton();
         manage_stocks_button = new javax.swing.JButton();
         manage_employees_button = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -168,6 +169,14 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jButton1.setText("Manage Defects");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -178,7 +187,8 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
                     .addComponent(manage_medicine_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(generate_bill_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(manage_stocks_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(manage_employees_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(manage_employees_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -190,9 +200,11 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
                 .addComponent(manage_medicine_button)
                 .addGap(35, 35, 35)
                 .addComponent(manage_stocks_button)
-                .addGap(34, 34, 34)
+                .addGap(39, 39, 39)
+                .addComponent(jButton1)
+                .addGap(37, 37, 37)
                 .addComponent(manage_employees_button)
-                .addContainerGap(223, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         jTabbedPane1.setName(""); // NOI18N
@@ -699,8 +711,18 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
                 shelf_number_update.setText(rs.getString("shelf_no"));
                 medicine_power_update.setText(rs.getString("medc_power"));
                 available_quantity_update.setText(rs.getString("medc_quantity_in_tablets"));
-                supplier_name_update.setSelectedItem(supplier_name_update.getItemAt(Integer.parseInt(rs.getString("medc_supplier_id")) - 1));
-                medicine_type_update.setSelectedItem(medicine_type_update.getItemAt(Integer.parseInt(rs.getString("medc_type_id")) - 1));
+                //supplier_name_update.setSelectedItem(supplier_name_update.getItemAt(Integer.parseInt(rs.getString("medc_supplier_id")) - 1));
+                //medicine_type_update.setSelectedItem(medicine_type_update.getItemAt(Integer.parseInt(rs.getString("medc_type_id")) - 1));
+                query = "select supplier_name from supplier where supplier_id = " + Integer.parseInt(rs.getString("medc_supplier_id"));
+                ResultSet rs1  = MySQL_Connector.runQuery(conn, query);
+                if(rs1.next()) {
+                    supplier_name_update.setSelectedItem(rs1.getString("supplier_name"));
+                }
+                query = "select type_name from medicine_type where type_id = " + Integer.parseInt(rs.getString("medc_type_id"));
+                rs1 = MySQL_Connector.runQuery(conn, query);
+                if(rs1.next()) {
+                    medicine_type_update.setSelectedItem(rs1.getString("type_name"));
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(Owner_Manage_Medicine.class.getName()).log(Level.SEVERE, null, ex);
@@ -757,14 +779,20 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
             String shelf = shelf_number_update.getText();
             String power = medicine_power_update.getText();
             String quantity = available_quantity_update.getText();
-            int supplier = supplier_name_update.getSelectedIndex();
-            int type = medicine_type_update.getSelectedIndex();
-            
-            supplier++;
-            type++;
+            int supplier = 0, type = 0;
             
             Connection conn = MySQL_Connector.getConnection();
-            String query = "update medicine set medc_name = '" + name + "', medc_supplier_id = " + supplier + ", medc_type_id = " + type + ", medc_per_strip = " + (int)Float.parseFloat(medicine_per_strip) + ", medc_cost_per_strip = " + (int)Float.parseFloat(cost) + ", medc_description = '" + description + "', shelf_no = '" + shelf + "', medc_power = " + Integer.parseInt(power) + ", medc_quantity_in_tablets = " + Integer.parseInt(quantity) + " where medc_name = '" + search_update.getSelectedItem().toString() + "'";
+            String query = "select supplier_id, type_id from supplier, medicine_type where supplier_name = '" + supplier_name_update.getSelectedItem().toString() + "' and type_name = '" + medicine_type_update.getSelectedItem().toString() + "'";
+            ResultSet rs = MySQL_Connector.runQuery(conn, query);
+            if(rs.next()) {
+                supplier = Integer.parseInt(rs.getString("supplier_id"));
+                type = Integer.parseInt(rs.getString("type_id"));
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Error in entered information!");
+                return;
+            }
+            query = "update medicine set medc_name = '" + name + "', medc_supplier_id = " + supplier + ", medc_type_id = " + type + ", medc_per_strip = " + (int)Float.parseFloat(medicine_per_strip) + ", medc_cost_per_strip = " + (int)Float.parseFloat(cost) + ", medc_description = '" + description + "', shelf_no = '" + shelf + "', medc_power = " + Integer.parseInt(power) + ", medc_quantity_in_tablets = " + Integer.parseInt(quantity) + " where medc_name = '" + search_update.getSelectedItem().toString() + "'";
             MySQL_Connector.runUpdateQuery(conn, query);
             
             this.setVisible(false);
@@ -788,33 +816,42 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
             String shelf = shelf_number_add.getText();
             String power = medicine_power_add.getText();
             String quantity = available_quantity_add.getText();
-            int supplier = supplier_name_add.getSelectedIndex();
-            int type = medicine_type_add.getSelectedIndex();
-            
-            supplier++;
-            type++;
+            int supplier = 0, type = 0;
             
             Connection conn = MySQL_Connector.getConnection();
-            String query = "select medc_id from medicine order by medc_id desc limit 1";
+            String query = "select supplier_id, type_id from supplier, medicine_type where supplier_name = '" + supplier_name_add.getSelectedItem().toString() + "' and type_name = '" + medicine_type_add.getSelectedItem().toString() + "'";
             ResultSet rs = MySQL_Connector.runQuery(conn, query);
-            String id = null;
+            if(rs.next()) {
+                supplier = Integer.parseInt(rs.getString("supplier_id"));
+                type = Integer.parseInt(rs.getString("type_id"));
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Error in entered information!");
+                return;
+            }
+            query = "select medc_id from medicine order by medc_id desc limit 1";
+            rs = MySQL_Connector.runQuery(conn, query);
+            String id = "medc_id1";
+            String text = "", num = "";
             
             if(rs == null) {
                 JOptionPane.showMessageDialog(null, "Failed to connect to the database. Try again after some time."); 
             }
             if(rs.next()) {
                 id = rs.getString("medc_id");
-            }
-            String text = "", num = "";
-            for(char ch : id.toCharArray()) {
-                if(Character.isDigit(ch)) {
-                    num += ch;
+                for(char ch : id.toCharArray()) {
+                    if(Character.isDigit(ch)) {
+                        num += ch;
+                    }
+                    else {
+                        text += ch;
+                    }
                 }
-                else {
-                    text += ch;
-                }
+                id = text + (Integer.parseInt(num) + 1);
             }
-            id = text + (Integer.parseInt(num) + 1);
+            else {
+                id = "medc_id1";
+            }
             
             query = "insert into medicine values ('" + id + "', '" + name + "', " + supplier + ", " + type + ", " + (int)Float.parseFloat(medicine_per_strip) + ", " + (int)Float.parseFloat(cost) + ", '" + description + "', '" + shelf + "', " + Integer.parseInt(power) + ", " + Integer.parseInt(quantity) + ")";
             MySQL_Connector.runUpdateQuery(conn, query);
@@ -863,6 +900,9 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
         }catch(SQLException e) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
         }
+        this.setVisible(true);
+        Owner_Manage_Medicine window = new Owner_Manage_Medicine(0, null);
+        window.setVisible(true);
     }//GEN-LAST:event_delete_button_viewActionPerformed
 
     private void search_updateItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_search_updateItemStateChanged
@@ -909,6 +949,12 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
         window.setVisible(true);
     }//GEN-LAST:event_manage_employees_buttonActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.setVisible(false);
+        Manage_Defects window = new Manage_Defects();
+        window.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -954,6 +1000,7 @@ public class Owner_Manage_Medicine extends javax.swing.JFrame {
     private javax.swing.JTextField cost_per_strip_update;
     private javax.swing.JButton delete_button_view;
     private javax.swing.JButton generate_bill_button;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

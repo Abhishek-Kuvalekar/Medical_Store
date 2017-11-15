@@ -141,6 +141,10 @@ public class Manage_Stocks extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_stock_table = new javax.swing.JTable();
+        jLabel26 = new javax.swing.JLabel();
+        jTextField_items_purchased = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        jTextField_cost_of_pur = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable_stock_info = new javax.swing.JTable();
@@ -393,21 +397,53 @@ public class Manage_Stocks extends javax.swing.JFrame {
         jTable_stock_table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane1.setViewportView(jTable_stock_table);
 
+        jLabel26.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel26.setText("Total Items Purchased:");
+
+        jTextField_items_purchased.setEditable(false);
+        jTextField_items_purchased.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_items_purchasedActionPerformed(evt);
+            }
+        });
+
+        jLabel27.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel27.setText("Total cost of Purchase:");
+
+        jTextField_cost_of_pur.setEditable(false);
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextField_items_purchased)
+                            .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(58, 58, 58)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField_cost_of_pur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel27))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_items_purchased, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_cost_of_pur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Stock Information"));
@@ -454,7 +490,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -463,12 +499,13 @@ public class Manage_Stocks extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("View Older Stocks", jPanel1);
@@ -686,7 +723,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
@@ -833,7 +870,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
                         .addComponent(jButton_add_item, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(117, 117, 117)))
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1096,7 +1133,7 @@ public class Manage_Stocks extends javax.swing.JFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 927, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1116,8 +1153,8 @@ public class Manage_Stocks extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1019, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1195,6 +1232,12 @@ public class Manage_Stocks extends javax.swing.JFrame {
                     model.addRow(new Object[]{medicine_name, supplier_name, rs2.getString("quantity"), rs2.getString("total_cost_of_purchase"), rs2.getString("purchase_date_timestamp")});
                 }
                 tableSort();
+                String query3 = "select sum(total_cost_of_purchase) cost, count(medc_id) items from stock_details where supplier_id = '"+supplier_id+"' && purchase_date_timestamp = '"+Date+"'";
+                ResultSet rs3 = MySQL_Connector.runQuery(conn, query3);
+                if(rs3.next()) {
+                    jTextField_cost_of_pur.setText(rs3.getString("cost"));
+                    jTextField_items_purchased.setText(rs3.getString("items"));
+                }
             }else if((supplier_name == null && medicine_name != null && Date == null) || (supplier_name != null && medicine_name != null && Date == null)) {
                 String query1 = "select medc_id from medicine where medc_name = '"+medicine_name+"'";
                 ResultSet rs1 = MySQL_Connector.runQuery(conn, query1);
@@ -1218,7 +1261,25 @@ public class Manage_Stocks extends javax.swing.JFrame {
                 ResultSet rs1 = MySQL_Connector.runQuery(conn, query1);
                 if(rs1.next()) {
                     model.addRow(new Object[]{medicine_name, supplier_name, rs1.getString("quantity"), rs1.getString("total_cost_of_purchase"), rs1.getString("purchase_date_timestamp")});
+                }else {
+                    JOptionPane.showMessageDialog(null, "No entries found!");
                 }
+            }else if(supplier_name == null && medicine_name != null && Date != null) {
+                DefaultTableModel model = (DefaultTableModel)this.jTable_stock_table.getModel();
+                String query1 = "select * from stock_details where medc_id = (select medc_id from medicine where medc_name = '"+medicine_name+"') && purchase_date_timestamp = '"+Date+"'";
+                ResultSet rs1 = MySQL_Connector.runQuery(conn, query1);
+                if(rs1.next()) {
+                    String query2 = "select supplier_name from supplier where supplier_id = "+rs1.getString("supplier_id")+"";
+                    ResultSet rs2 = MySQL_Connector.runQuery(conn, query2);
+                    if(rs2.next()) {
+                        model.addRow(new Object[]{medicine_name, rs2.getString("supplier_name"), rs1.getString("quantity"), rs1.getString("total_cost_of_purchase"), rs1.getString("purchase_date_timestamp")});
+                
+                    }else {
+                        JOptionPane.showMessageDialog(null, "No entries found!");
+                    }
+                }
+            }else {
+                JOptionPane.showMessageDialog(null, "Enter appropriate fields!");
             }
             conn.close();
         }catch(SQLException e) {
@@ -1300,15 +1361,19 @@ public class Manage_Stocks extends javax.swing.JFrame {
                 }else {
                     String query4 = "insert into stock_details values('"+medicine_id+"', '"+supplier_id+"', '"+purchase_date+"', '"+quantity+"', '"+cost+"')";
                     MySQL_Connector.runUpdateQuery(conn, query4);
-                    String query5 = "update medicine set medc_quantity_in_tablets = '"+tablets_in_strips+"' where medc_id = '"+medicine_id+"'";
+                    String query5 = "update medicine set medc_quantity_in_tablets = "+tablets_in_strips+" where medc_id = '"+medicine_id+"'";
                     MySQL_Connector.runUpdateQuery(conn, query5);
-                    JOptionPane.showMessageDialog(null, new String("Entry saved successfully in the Database!"));
                 }
             }
+            JOptionPane.showMessageDialog(null, new String("Entry saved successfully in the Database!"));
             conn.close();
         }catch (SQLException e) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
         }
+        this.setVisible(false);
+        Manage_Stocks stocks = new Manage_Stocks();
+        stocks.setVisible(true);
+        stocks.jTabbedPane1.setSelectedIndex(3);
     }//GEN-LAST:event_jButton_add_to_databaseActionPerformed
 
     private void jButton_update_stockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_update_stockActionPerformed
@@ -1329,12 +1394,16 @@ public class Manage_Stocks extends javax.swing.JFrame {
            }
            String query2 = "update stock_details set quantity = '"+total_quantity+"', total_cost_of_purchase = '"+cost+"' where medc_id = '"+medicine_id+"' && purchase_date_timestamp = '"+date+"'";
            MySQL_Connector.runUpdateQuery(conn, query2);
-            String query3 = "update medicine set medc_quantity_in_tablets = '"+Integer.parseInt(rs1.getString("medc_quantity_in_tablets"))+(int)Math.ceil(Float.parseFloat(rs1.getString("medc_per_strip")))*Integer.parseInt(jTextField_quantity_purchased.getText())+"' where medc_name = '"+jComboBox2_medicine_name.getSelectedItem().toString()+"'";
+            String query3 = "update medicine set medc_quantity_in_tablets = "+(Integer.parseInt(rs1.getString("medc_quantity_in_tablets"))+(int)Math.ceil(Float.parseFloat(rs1.getString("medc_per_strip")))*Integer.parseInt(jTextField_quantity_purchased.getText()))+" where medc_name = '"+jComboBox2_medicine_name.getSelectedItem().toString()+"'";
            MySQL_Connector.runUpdateQuery(conn, query3);
            JOptionPane.showMessageDialog(null, "Entry Updated successfully!");
         }catch(SQLException e) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
        }
+       this.setVisible(false);
+       Manage_Stocks stock = new Manage_Stocks();
+       stock.jTabbedPane1.setSelectedIndex(1);
+       stock.setVisible(true);
     }//GEN-LAST:event_jButton_update_stockActionPerformed
 
     private void jComboBox2_medicine_nameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2_medicine_nameItemStateChanged
@@ -1430,6 +1499,10 @@ public class Manage_Stocks extends javax.swing.JFrame {
         }catch(SQLException e) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
         }
+        this.setVisible(false);
+        Manage_Stocks stocks = new Manage_Stocks();
+        stocks.setVisible(true);
+        stocks.jTabbedPane1.setSelectedIndex(2);
     }//GEN-LAST:event_jButton_delete_stockActionPerformed
 
     private void jXDatePicker2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker2ActionPerformed
@@ -1478,9 +1551,15 @@ public class Manage_Stocks extends javax.swing.JFrame {
        }catch(SQLException e) {
            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
        }
-       
+       this.setVisible(false);
+       Manage_Stocks stocks = new Manage_Stocks();
+       stocks.setVisible(true);
+       stocks.jTabbedPane1.setSelectedIndex(4);
+       stocks.jTabbedPane3.setSelectedIndex(0);
     }//GEN-LAST:event_jButton_add_supplierActionPerformed
 
+    private static long serial_no_supplier = 1;
+    
     private void jButton_remove_supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_remove_supplierActionPerformed
         int result = JOptionPane.showConfirmDialog(rootPane, "Do you really want to delete this entry?");
         if(result == 1 || result == 2) {
@@ -1494,6 +1573,11 @@ public class Manage_Stocks extends javax.swing.JFrame {
         }catch(SQLException e) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
         }
+        this.setVisible(false);
+        Manage_Stocks stocks = new Manage_Stocks();
+        stocks.setVisible(true);
+        stocks.jTabbedPane1.setSelectedIndex(4);
+        stocks.jTabbedPane3.setSelectedIndex(1);
     }//GEN-LAST:event_jButton_remove_supplierActionPerformed
 
     private void jComboBox3_supplier_nameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox3_supplier_nameItemStateChanged
@@ -1514,13 +1598,18 @@ public class Manage_Stocks extends javax.swing.JFrame {
 
     private void jButton_update_supplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_update_supplierActionPerformed
         try(Connection conn = MySQL_Connector.getConnection()) {
-            String query = "update supplier set supplier_addr = '"+jTextArea_supplier_addr1.getText().toString()+"', supplier_phone_num = '"+jTextField_contact_number1.getText().toString()+"', supplier_email = '"+jTextField_contact_email1.getText().toString()+"', supplier_contact_person = '"+jTextArea_contact_person1.getText().toString()+"'";
+            String query = "update supplier set supplier_addr = '"+jTextArea_supplier_addr1.getText().toString()+"', supplier_phone_num = '"+jTextField_contact_number1.getText().toString()+"', supplier_email = '"+jTextField_contact_email1.getText().toString()+"', supplier_contact_person = '"+jTextArea_contact_person1.getText().toString()+"' where supplier_name = '"+jComboBox3_supplier_name.getSelectedItem().toString()+"'";
             MySQL_Connector.runUpdateQuery(conn, query);
             JOptionPane.showMessageDialog(null, "Entry updated successfully!");
             conn.close();
         }catch(SQLException e) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);   
         }
+        this.setVisible(false);
+        Manage_Stocks stocks = new Manage_Stocks();
+        stocks.setVisible(true);
+        stocks.jTabbedPane1.setSelectedIndex(4);
+        stocks.jTabbedPane3.setSelectedIndex(1);
     }//GEN-LAST:event_jButton_update_supplierActionPerformed
 
     private void jTextField_contact_email1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_contact_email1ActionPerformed
@@ -1556,6 +1645,10 @@ public class Manage_Stocks extends javax.swing.JFrame {
        Owner_Manage_Employee window = new Owner_Manage_Employee();
        window.setVisible(true);
     }//GEN-LAST:event_manage_employeeActionPerformed
+
+    private void jTextField_items_purchasedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_items_purchasedActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_items_purchasedActionPerformed
     
     private void tableSort() {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTable_stock_table.getModel());
@@ -1636,6 +1729,8 @@ public class Manage_Stocks extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1683,6 +1778,8 @@ public class Manage_Stocks extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_contact_email1;
     private javax.swing.JTextField jTextField_contact_number;
     private javax.swing.JTextField jTextField_contact_number1;
+    private javax.swing.JTextField jTextField_cost_of_pur;
+    private javax.swing.JTextField jTextField_items_purchased;
     private javax.swing.JTextField jTextField_quantity_purchased;
     private javax.swing.JTextField jTextField_supplier_name;
     private javax.swing.JTextField jTextField_total_cost;

@@ -23,7 +23,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import static medical_store.Employee_Window.serial_no;
+
 
 /**
  *
@@ -257,6 +257,7 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
         manage_medicine_button = new javax.swing.JButton();
         manage_stock_button = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -364,6 +365,14 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
         jButton7.setForeground(new java.awt.Color(201, 45, 45));
         jButton7.setText("Manage Employees");
 
+        jButton1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jButton1.setText("Manage Defects");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -371,9 +380,10 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(manage_medicine_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(manage_medicine_button, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                     .addComponent(generate_bill_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(manage_stock_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
@@ -386,7 +396,9 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
                 .addComponent(manage_medicine_button)
                 .addGap(35, 35, 35)
                 .addComponent(manage_stock_button)
-                .addGap(34, 34, 34)
+                .addGap(39, 39, 39)
+                .addComponent(jButton1)
+                .addGap(36, 36, 36)
                 .addComponent(jButton7)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -652,11 +664,11 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel25))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(attendance_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(attendance_label, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(salary_label)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -805,7 +817,7 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(submit_add)
@@ -1019,7 +1031,7 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel20)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submit_update)
                     .addComponent(cancel_update))
@@ -1095,10 +1107,19 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
             String birth = new SimpleDateFormat("yyyy-MM-dd").format(dob.getDate());
             String join = new SimpleDateFormat("yyyy-MM-dd").format(doj.getDate());
             String id = null;
+            int intRole = 0; 
             
             Connection conn = MySQL_Connector.getConnection();
-            
-            String query = "insert into employee(emp_name, emp_role_id, emp_addr, emp_dob, emp_email, emp_mobile_num, emp_alternate_num, emp_salary, emp_joining_date) values ('" + strName + "', " + (role.getSelectedIndex() + 1) + ", '" + strAddr + "', '" + birth + "', '" + strEmail + "', '" + strMob + "', '" + strMobAlt + "', " + Integer.parseInt(strSalary) + ", '" + join + "')";
+            String query = "select role_id from role where role_name = '" + strRole + "'";
+            ResultSet rs = MySQL_Connector.runQuery(conn, query);
+            if(rs.next()) {
+                intRole = Integer.parseInt(rs.getString("role_id"));
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Failed to connect to the database!");
+                return;
+            }
+            query = "insert into employee(emp_name, emp_role_id, emp_addr, emp_dob, emp_email, emp_mobile_num, emp_alternate_num, emp_salary, emp_joining_date) values ('" + strName + "', " + intRole + ", '" + strAddr + "', '" + birth + "', '" + strEmail + "', '" + strMob + "', '" + strMobAlt + "', " + Integer.parseInt(strSalary) + ", '" + join + "')";
             
             MySQL_Connector.runUpdateQuery(conn, query);
             JOptionPane.showMessageDialog(null, strName + " is added succesfully to the database.");
@@ -1173,9 +1194,18 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
             if(result != 0) {
                 return;
             }
-            
+            int intRole = 0;
             Connection conn = MySQL_Connector.getConnection();
-            String query = "update employee set emp_name = '" + name1.getText() +"', emp_mobile_num = '" + mob1.getText() + "', emp_role_id = " + (role1.getSelectedIndex() + 1) + ", emp_alternate_num = '" + mob_alt1.getText() + "', emp_salary = " + (int)Float.parseFloat(salary1.getText()) + ", emp_email = '" + email1.getText() + "', emp_addr = '" + addr1.getText() + "' where emp_name = '" + search_update.getSelectedItem().toString() + "'";
+            String query = "select role_id from role where role_name = '" + role1.getSelectedItem().toString() + "'";
+            ResultSet rs = MySQL_Connector.runQuery(conn, query);
+            if(rs.next()) {
+                intRole = Integer.parseInt(rs.getString("role_id"));
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Failed to connect to the database!");
+                return;
+            }
+            query = "update employee set emp_name = '" + name1.getText() +"', emp_mobile_num = '" + mob1.getText() + "', emp_role_id = " + intRole + ", emp_alternate_num = '" + mob_alt1.getText() + "', emp_salary = " + (int)Float.parseFloat(salary1.getText()) + ", emp_email = '" + email1.getText() + "', emp_addr = '" + addr1.getText() + "' where emp_name = '" + search_update.getSelectedItem().toString() + "'";
             MySQL_Connector.runUpdateQuery(conn, query);
             
             this.setVisible(false);
@@ -1265,6 +1295,12 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
         setSalary();
     }//GEN-LAST:event_search_viewFocusGained
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       this.setVisible(false);
+       Manage_Defects window = new Manage_Defects();
+       window.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(null, "happened");
         DefaultTableModel model = (DefaultTableModel)attendance.getModel();
@@ -1324,6 +1360,7 @@ public class Owner_Manage_Employee extends javax.swing.JFrame {
     private javax.swing.JTextField email;
     private javax.swing.JTextField email1;
     private javax.swing.JButton generate_bill_button;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

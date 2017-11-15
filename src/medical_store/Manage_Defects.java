@@ -128,8 +128,8 @@ public class Manage_Defects extends javax.swing.JFrame {
         generate_bill_button1 = new javax.swing.JButton();
         manage_medicine_button1 = new javax.swing.JButton();
         manage_stock_button1 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButton_manage_employee = new javax.swing.JButton();
+        jButton_manage_defects = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -180,7 +180,7 @@ public class Manage_Defects extends javax.swing.JFrame {
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Navigation"));
 
-        generate_bill_button1.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        generate_bill_button1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         generate_bill_button1.setText("Generate Bill");
         generate_bill_button1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,7 +188,7 @@ public class Manage_Defects extends javax.swing.JFrame {
             }
         });
 
-        manage_medicine_button1.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        manage_medicine_button1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         manage_medicine_button1.setText("Manage Medicines");
         manage_medicine_button1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,7 +196,7 @@ public class Manage_Defects extends javax.swing.JFrame {
             }
         });
 
-        manage_stock_button1.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        manage_stock_button1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         manage_stock_button1.setText("Manage Stocks");
         manage_stock_button1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,17 +204,22 @@ public class Manage_Defects extends javax.swing.JFrame {
             }
         });
 
-        jButton8.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
-        jButton8.setText("Manage Employees");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        jButton_manage_employee.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jButton_manage_employee.setText("Manage Employees");
+        jButton_manage_employee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                jButton_manage_employeeActionPerformed(evt);
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(194, 12, 12));
-        jButton1.setText("Manage Defects");
+        jButton_manage_defects.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jButton_manage_defects.setForeground(new java.awt.Color(194, 12, 12));
+        jButton_manage_defects.setText("Manage Defects");
+        jButton_manage_defects.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_manage_defectsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -226,8 +231,8 @@ public class Manage_Defects extends javax.swing.JFrame {
                     .addComponent(manage_medicine_button1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(generate_bill_button1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(manage_stock_button1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton_manage_employee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_manage_defects, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
@@ -240,9 +245,9 @@ public class Manage_Defects extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(manage_stock_button1)
                 .addGap(39, 39, 39)
-                .addComponent(jButton1)
+                .addComponent(jButton_manage_defects)
                 .addGap(38, 38, 38)
-                .addComponent(jButton8)
+                .addComponent(jButton_manage_employee)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -251,8 +256,17 @@ public class Manage_Defects extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel2.setText("Medicine Name:");
 
+        jComboBox_medicine_name.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
+        jComboBox_medicine_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_medicine_nameActionPerformed(evt);
+            }
+        });
+
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel3.setText("Supplier Name:");
+
+        jComboBox_supplier_name.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel4.setText("Return Date:");
@@ -406,7 +420,7 @@ public class Manage_Defects extends javax.swing.JFrame {
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 508, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 504, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -578,7 +592,7 @@ public class Manage_Defects extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jTabbedPane2)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 611, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -697,14 +711,14 @@ public class Manage_Defects extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1035, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
+                .addContainerGap(24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTabbedPane1)
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -742,11 +756,11 @@ public class Manage_Defects extends javax.swing.JFrame {
         for(int i = j-1;i >= 0 ; i--) {
             dm.removeRow(i);
         }
-        if(jComboBox_supplier_name.getSelectedIndex() != -1) {
+        if(jComboBox_supplier_name.getSelectedIndex() != 0) {
             supplier_name = jComboBox_supplier_name.getSelectedItem().toString();
         }
         
-        if(jComboBox_medicine_name.getSelectedIndex() != -1) {
+        if(jComboBox_medicine_name.getSelectedIndex() != 0) {
            medicine_name = jComboBox_medicine_name.getSelectedItem().toString();
         }
         if(jXDatePicker_return.getDate() != null) {
@@ -815,10 +829,21 @@ public class Manage_Defects extends javax.swing.JFrame {
                 }
             }else if(supplier_name != null && medicine_name != null && Date != null){
                 DefaultTableModel model = (DefaultTableModel)this.jTable_return_info.getModel();
-                String query1 = "select * from stock_defect where medc_id = (select medc_id from medicine where medc_name = '"+medicine_name+"') && return_date = '"+Date+"'";
+                String query1 = "select * from stock_defect where medc_id = (select medc_id from medicine where medc_name = '"+medicine_name+"') && return_date = '"+Date+"' && supplier_id = (select supplier_id from supplier where supplier_name = '"+supplier_name+"')";
                 ResultSet rs1 = MySQL_Connector.runQuery(conn, query1);
                 if(rs1.next()) {
                     model.addRow(new Object[]{serial_no, medicine_name, rs1.getString("return_date"), rs1.getString("defect_id"), rs1.getString("quantity"), rs1.getString("amount_received_back"), rs1.getString("amount_pending"), rs1.getString("defect_description_in_detail")});    
+                }else {
+                    JOptionPane.showMessageDialog(null, "No entries found!");
+                }
+            }else if(supplier_name == null && medicine_name != null && Date != null) {
+                DefaultTableModel model = (DefaultTableModel)this.jTable_return_info.getModel();
+                String query1 = "select * from stock_defect where medc_id = (select medc_id from medicine where medc_name = '"+medicine_name+"') && return_date = '"+Date+"' && supplier_id = (select supplier_id from supplier where supplier_name = '"+supplier_name+"')";
+                ResultSet rs1 = MySQL_Connector.runQuery(conn, query1);
+                if(rs1.next()) {
+                    model.addRow(new Object[]{serial_no, medicine_name, rs1.getString("return_date"), rs1.getString("defect_id"), rs1.getString("quantity"), rs1.getString("amount_received_back"), rs1.getString("amount_pending"), rs1.getString("defect_description_in_detail")});    
+                }else {
+                    JOptionPane.showMessageDialog(null, "No entries found!");
                 }
             }
             conn.close();
@@ -831,19 +856,28 @@ public class Manage_Defects extends javax.swing.JFrame {
         SimpleDateFormat sysdate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String Date = sysdate.format(jXDatePicker1_return.getDate());
         try(Connection conn = MySQL_Connector.getConnection()){ 
-            String query = "select medc_id, medc_supplier_id from medicine where medc_name = '"+jComboBox1_medicine_name.getSelectedItem().toString()+"'";
+            String query = "select medc_id, medc_supplier_id, medc_per_strip, medc_quantity_in_tablets from medicine where medc_name = '"+jComboBox1_medicine_name.getSelectedItem().toString()+"'";
             ResultSet rs = MySQL_Connector.runQuery(conn, query);
             if(rs.next()) {
                 String query1 = "insert into stock_defect values ('"+rs.getString("medc_id")+"', '"+Integer.parseInt(rs.getString("medc_supplier_id"))+"', '"+jTextField_quantity.getText().toString()+"', '"+jComboBox_defect_num2.getSelectedItem().toString()+"', '"+jTextArea_desc.getText().toString()+"', '"+Date+"', '"+jTextField_amount_received.getText().toString()+"', '"+jTextField_amount_pending.getText().toString()+"')";
                 MySQL_Connector.runUpdateQuery(conn, query1);
-                JOptionPane.showMessageDialog(null, "Entry saved succssfully!");
+                Integer quant = Integer.parseInt(rs.getString("medc_quantity_in_tablets")) - ((Integer.parseInt(jTextField_quantity.getText().toString()))*((int)Math.ceil(Float.parseFloat(rs.getString("medc_per_strip")))));
+                String query2 = "update medicine set medc_quantity_in_tablets = "+quant+" where medc_id = '"+rs.getString("medc_id")+"'";
+                MySQL_Connector.runUpdateQuery(conn, query2);
             }
+            JOptionPane.showMessageDialog(null, "Entry saved succssfully!");
             conn.close();
         }catch(SQLException e) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
         }
+        this.setVisible(false);
+        Manage_Defects stocks = new Manage_Defects();
+        stocks.setVisible(true);
+        stocks.jTabbedPane2.setSelectedIndex(1);
     }//GEN-LAST:event_jButton_add_entryActionPerformed
-
+    
+                                                 
+    
     private void jComboBox1_medicine_nameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1_medicine_nameItemStateChanged
         try(Connection conn = MySQL_Connector.getConnection()) {
             String query = "select supplier_name from supplier where supplier_id = (select supplier_id from medicine where medc_name = '"+jComboBox1_medicine_name.getSelectedItem().toString()+"')";
@@ -875,11 +909,21 @@ public class Manage_Defects extends javax.swing.JFrame {
         window.setVisible(true);
     }//GEN-LAST:event_manage_stock_button1ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        this.setVisible(false);
-        Owner_Manage_Employee window = new Owner_Manage_Employee();
-        window.setVisible(true);
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void jButton_manage_defectsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_manage_defectsActionPerformed
+       this.setVisible(false);
+       Manage_Defects window = new Manage_Defects();
+       window.setVisible(true);
+    }//GEN-LAST:event_jButton_manage_defectsActionPerformed
+
+    private void jButton_manage_employeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_manage_employeeActionPerformed
+       this.setVisible(false);
+       Owner_Manage_Employee window = new Owner_Manage_Employee();
+       window.setVisible(true);
+    }//GEN-LAST:event_jButton_manage_employeeActionPerformed
+
+    private void jComboBox_medicine_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_medicine_nameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox_medicine_nameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -918,9 +962,9 @@ public class Manage_Defects extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton generate_bill_button1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton_add_entry;
+    private javax.swing.JButton jButton_manage_defects;
+    private javax.swing.JButton jButton_manage_employee;
     private javax.swing.JButton jButton_search2;
     private javax.swing.JButton jButton_search_defect;
     private javax.swing.JComboBox<String> jComboBox1_medicine_name;

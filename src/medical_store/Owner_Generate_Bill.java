@@ -5,8 +5,22 @@
  */
 package medical_store;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfTemplate;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.mysql.jdbc.Connection;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -14,6 +28,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -33,6 +48,7 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
     public Owner_Generate_Bill() {
         initComponents();
         setEnabled(true);
+        jLabel_total_cost.setText("0");
         DefaultTableModel tablemodel = (DefaultTableModel)this.jTable_Bill.getModel();
         ListSelectionModel model = jTable_Bill.getSelectionModel();
         model.addListSelectionListener(new ListSelectionListener() {
@@ -148,6 +164,7 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
         manage_medicine_button = new javax.swing.JButton();
         manage_stocks_button = new javax.swing.JButton();
         manage_employees_button = new javax.swing.JButton();
+        jButton_manage_defects = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
@@ -428,6 +445,14 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
             }
         });
 
+        jButton_manage_defects.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jButton_manage_defects.setText("Manage Defects");
+        jButton_manage_defects.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_manage_defectsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -438,7 +463,8 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
                     .addComponent(manage_medicine_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(generate_bill_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(manage_stocks_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(manage_employees_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(manage_employees_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_manage_defects, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -450,9 +476,11 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
                 .addComponent(manage_medicine_button)
                 .addGap(35, 35, 35)
                 .addComponent(manage_stocks_button)
-                .addGap(34, 34, 34)
+                .addGap(36, 36, 36)
+                .addComponent(jButton_manage_defects)
+                .addGap(42, 42, 42)
                 .addComponent(manage_employees_button)
-                .addContainerGap(223, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         jMenu3.setText("File");
@@ -515,7 +543,7 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
                 String medicine_id = "";
                 if(rs2.next())
                     medicine_id = rs2.getString("medc_id").toString();
-                String query2 = "insert into sales values ('"+bill_no+"', '"+timestamp+"','"+medicine_id+"' , '"+quantity+"', '"+total_cost+"', 0)";
+                String query2 = "insert into sales values ('"+bill_no+"', '"+timestamp+"','"+medicine_id+"' , '"+quantity+"', '"+total_cost+"')";
                 MySQL_Connector.runUpdateQuery(conn, query2);
                 String sub_query = "select medc_quantity_in_tablets from medicine where medc_name = '"+medicine_name+"'";
                 ResultSet sub_rs = MySQL_Connector.runQuery(conn, sub_query);
@@ -542,34 +570,94 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
     private void jButton_printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_printActionPerformed
         jButton_print.setEnabled(false);
         InsertIntoSales();
+        PrinterJob pj = PrinterJob.getPrinterJob();
+        //PageFormat pf = pj.pageDialog(pj.defaultPage());
+        if (pj.printDialog()) {
+            try {
+                pj.print();
+            }
+            catch (PrinterException exc) {
+                JOptionPane.showMessageDialog(null, "Printing Error!");
+            }
+        }
+        try {
+            Document document = new Document(PageSize.A4, 90, 90, 90, 90);
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/abhishek/file.pdf"));
+            document.open();
+            PdfContentByte cb = writer.getDirectContent();
+            PdfTemplate tp = cb.createTemplate(jPanel3.getWidth(), jPanel3.getHeight());
+            Graphics2D g2 = tp.createGraphics(jPanel3.getWidth(), jPanel3.getHeight());
+            g2.scale(0.8, 1.0);
+            jPanel3.print(g2);
+            g2.dispose();
+            cb.addTemplate(tp, 5, 60);
+            document.close();
+        } catch (DocumentException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Employee_Window.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
+        Owner_Generate_Bill window = new Owner_Generate_Bill();
+        window.setVisible(true);
     }//GEN-LAST:event_jButton_printActionPerformed
+    public int print(Graphics g, PageFormat pf, int index) throws PrinterException {
 
+        Graphics2D g2 = (Graphics2D) g;
+        if (index >= 1) {
+            return Printable.NO_SUCH_PAGE;
+        } else {
+
+            jPanel3.printAll(g2);
+            return Printable.PAGE_EXISTS;
+        }
+
+    }
     private void jButton_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_saveActionPerformed
         jButton_save.setEnabled(false);
         InsertIntoSales();
-
+        this.setVisible(false);
+        Owner_Generate_Bill window = new Owner_Generate_Bill();
+        window.setVisible(true);
     }//GEN-LAST:event_jButton_saveActionPerformed
     
-    public static int serial_no = 1;
-    public static Integer total_bill = 0;
+    public int serial_no = 1;
+    public int flag = 0;
     
     private void AddItemToBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddItemToBillActionPerformed
-        DefaultTableModel model = (DefaultTableModel)this.jTable_Bill.getModel();
-        model.addRow(new Object[]{null,null,null,null,null});
-        String medicine_name = jComboBox1_select.getSelectedItem().toString();
-        int quantity = Integer.parseInt(jTextField_quantity.getText());
-        int cost_per_tablet = (int)Math.ceil(Float.parseFloat(JTable_info.getValueAt(5, 1).toString())/Float.parseFloat(JTable_info.getValueAt(6,1).toString()));
-        jTable_Bill.setValueAt(serial_no, serial_no-1, 0);
-        jTable_Bill.setValueAt(medicine_name, serial_no-1, 1);
-        jTable_Bill.setValueAt(cost_per_tablet, serial_no-1, 2);
-        jTable_Bill.setValueAt(quantity, serial_no-1, 3);
-        float bill = quantity * cost_per_tablet;
-        jTable_Bill.setValueAt(bill, serial_no-1, 4);  
-        serial_no++;
-        
-        total_bill = total_bill + (int)Math.ceil(bill);
-        
-        jLabel_total_cost.setText(total_bill.toString());
+        if(Integer.parseInt(JTable_info.getValueAt(4, 1).toString()) < Integer.parseInt(jTextField_quantity.getText())) {
+            JOptionPane.showMessageDialog(null, "Entered quantity exceeds available quantity.");
+            return;
+        }
+        for(int i = 0; i<jTable_Bill.getRowCount(); i++) {
+            if(jTable_Bill.getValueAt(i, 1) == jComboBox1_select.getSelectedItem().toString()) {
+                flag = 1;
+                break;
+            }
+        }
+        if(flag == 0) {
+            //JOptionPane.showMessageDialog(null, serial_no);
+            DefaultTableModel model = (DefaultTableModel)this.jTable_Bill.getModel();
+            model.addRow(new Object[]{null,null,null,null,null});
+            String medicine_name = jComboBox1_select.getSelectedItem().toString();
+            int quantity = Integer.parseInt(jTextField_quantity.getText());
+            int cost_per_tablet = (int)Math.ceil(Float.parseFloat(JTable_info.getValueAt(5, 1).toString())/Float.parseFloat(JTable_info.getValueAt(6,1).toString()));
+            jTable_Bill.setValueAt(serial_no, serial_no-1, 0);
+            jTable_Bill.setValueAt(medicine_name, serial_no-1, 1);
+            jTable_Bill.setValueAt(cost_per_tablet, serial_no-1, 2);
+            jTable_Bill.setValueAt(quantity, serial_no-1, 3);
+            float bill = quantity * cost_per_tablet;
+            jTable_Bill.setValueAt(bill, serial_no-1, 4);  
+            serial_no++;
+
+            Integer total_bill = (int)Math.ceil(Float.parseFloat(jLabel_total_cost.getText().toString()));
+            total_bill = total_bill + (int)Math.ceil(bill);
+
+            jLabel_total_cost.setText(total_bill.toString());
+        }else {
+            flag = 0;
+            JOptionPane.showMessageDialog(null, "Entry already exists in the Bill. Delete the entry first and then re-insert again.");
+        }
     }//GEN-LAST:event_AddItemToBillActionPerformed
 
     private void showInformation() {
@@ -597,7 +685,9 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
         }
     }
     private void newBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBillActionPerformed
-        repaint();
+        this.setVisible(false);
+        Owner_Generate_Bill window = new Owner_Generate_Bill();
+        window.setVisible(true);
     }//GEN-LAST:event_newBillActionPerformed
 
     private void jComboBox1_selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1_selectActionPerformed
@@ -635,6 +725,12 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
         Owner_Manage_Employee window = new Owner_Manage_Employee();
         window.setVisible(true);
     }//GEN-LAST:event_manage_employees_buttonActionPerformed
+
+    private void jButton_manage_defectsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_manage_defectsActionPerformed
+        this.setVisible(false);
+        Manage_Defects window = new Manage_Defects();
+        window.setVisible(true);
+    }//GEN-LAST:event_jButton_manage_defectsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -675,6 +771,7 @@ public class Owner_Generate_Bill extends javax.swing.JFrame {
     private javax.swing.JButton AddItemToBill;
     private javax.swing.JTable JTable_info;
     private javax.swing.JButton generate_bill_button;
+    private javax.swing.JButton jButton_manage_defects;
     private javax.swing.JButton jButton_print;
     private javax.swing.JButton jButton_save;
     private javax.swing.JComboBox<String> jComboBox1_select;

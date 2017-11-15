@@ -59,13 +59,7 @@ create table medicine
 	 foreign key(medc_type_id) references medicine_type(type_id)
 	 	on delete set null );
 	 
-create table stock_supplier
-	(stock_id int not null auto_increment,
-	 supplier_id int,
-	 primary key(stock_id),
-	 foreign key(supplier_id) references supplier(supplier_id)
-	 	on delete set null );*/
-	 	
+ 	
 create table stock_details
 	(medc_id varchar(20) not null,
 	 supplier_id int not null,
@@ -85,33 +79,30 @@ create table defect
 	 
 create table stock_defect
 	(medc_id varchar(20) not null,
+	 supplier_id int(11),
 	 quantity int,
 	 defect_id int,
 	 defect_description_in_detail text,
 	 return_date date,
 	 amount_received_back numeric(12,2),
 	 amount_pending numeric(12,2),
-	 primary key(medc_id),
+	 primary key(medc_id, defect_id, return_date),
 	 foreign key(medc_id) references stock_details(medc_id)
-	 	on delete cascade );
+	 	on delete cascade
+	 foreign key (defect_id) references defect(defect_id)
+	 	on delete cascade
+	 foreign key (supplier_id) references supplier (supplier_id)
+	 	on delete cascade);
 	 	
 create table attendance_details
 	(emp_id int(11) not null,
-     day date,
-     attendance enum('F', 'T'),
+         day date,
+         attendance enum('F', 'T'),
 	 primary key(emp_id, day),
 	 foreign key(emp_id) references employee(emp_id)
 	 	on delete cascade );
 	 	
-create table payroll
- 	(emp_id int not null,
- 	 year int(4),
- 	 month int check(0<month<13),
- 	 salary_to_be_paid numeric(12,2),
- 	 primary key (emp_id, year, month),
- 	 foreign key(emp_id) references employee(emp_id)
- 	 	on delete cascade
-	);
+ 	
 	
 create table sales
 	(bill_no int not null auto_increment,
